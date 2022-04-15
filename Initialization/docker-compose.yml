@@ -26,5 +26,4 @@ services:
     ports:
         - 8183:80
 volumes:
-  mongodata:
   mysqldata:

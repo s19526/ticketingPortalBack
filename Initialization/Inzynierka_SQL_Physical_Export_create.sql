@@ -1,6 +1,9 @@
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2022-04-13 17:50:07.241
 
+CREATE DATABASE TICKETING_PORTAL;
+USE TICKETING_PORTAL;
+
 -- tables
 -- Table: email_recipents
 CREATE TABLE email_recipents (
