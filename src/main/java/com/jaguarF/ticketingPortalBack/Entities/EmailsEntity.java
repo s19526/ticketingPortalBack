@@ -1,0 +1,28 @@
+package com.jaguarF.ticketingPortalBack.Entities;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+@Data
+@Entity
+@Table(name = "emails", schema = "TICKETING_PORTAL", catalog = "")
+public class EmailsEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id")
+    private int id;
+    @Basic
+    @Column(name = "name")
+    private String name;
+    @Basic
+    @Column(name = "subject")
+    private String subject;
+    @Basic
+    @Column(name = "content")
+    private String content;
+    @Basic
+    @Column(name = "created")
+    private Timestamp created;
+
+}
