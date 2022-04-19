@@ -1,17 +1,31 @@
 package com.jaguarF.ticketingPortalBack.Controllers;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.jaguarF.ticketingPortalBack.Entities.Ticket_old;
+import com.jaguarF.ticketingPortalBack.Entities.TicketsEntity;
+
+import com.jaguarF.ticketingPortalBack.Services.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Service("TicketController")
+@RequestMapping("/tickets")
 public class TicketController {
+    @Autowired
+    private TicketService ticketService;
 
-    @GetMapping("/tickets")
-    public static List<Ticket_old> getTickets(@RequestParam(value="userId") Long userId){
-        return Ticket_old.getUserTickets(userId);
+    @GetMapping()
+    List<TicketsEntity> getAllTickets(){
+        List<TicketsEntity> tickets = ticketService.getAllTickets();
+        return tickets;
     }
+    @GetMapping("/{id}")
+    List<TicketsEntity> getUserTickets(@PathVariable int id){
+        List<TicketsEntity> tickets = ticketService.getUserTickets(id);
+        return tickets;
+    }
+
+
 
 }

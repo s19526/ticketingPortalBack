@@ -1,17 +1,20 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Data
+@Getter@Setter@NoArgsConstructor
 @Entity
-@Table(name = "ticket_history", schema = "TICKETING_PORTAL", catalog = "")
+@Table(name = "ticket_history", schema = "TICKETING_PORTAL")
 public class TicketHistoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
     @Basic
     @Column(name = "ticket_id")

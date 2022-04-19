@@ -1,9 +1,15 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Entity
 @Table(name = "organizations", schema = "TICKETING_PORTAL", catalog = "")
 public class OrganizationsEntity {

@@ -1,10 +1,16 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Entity
 @Table(name = "emails", schema = "TICKETING_PORTAL", catalog = "")
 public class EmailsEntity {

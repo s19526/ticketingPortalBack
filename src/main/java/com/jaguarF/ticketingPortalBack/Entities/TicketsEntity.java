@@ -1,14 +1,25 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import lombok.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
+import org.hibernate.query.Query;
+import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
-@Data
+@Getter@Setter@NoArgsConstructor
 @Entity
 @Table(name = "tickets", schema = "TICKETING_PORTAL")
 public class TicketsEntity {
+
+
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
