@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -23,5 +24,6 @@ public class StatusesEntity {
     @Basic
     @Column(name = "description")
     private String description;
-
+    @OneToMany(mappedBy = "status")
+    private Collection<TicketHistoryEntity> ticketsHistory;
 }

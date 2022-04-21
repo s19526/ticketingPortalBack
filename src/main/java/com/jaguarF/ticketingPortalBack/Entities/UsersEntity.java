@@ -1,6 +1,5 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +7,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Collection;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "users", schema = "TICKETING_PORTAL", catalog = "")
+@Table(name = "users", schema = "TICKETING_PORTAL")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UsersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -48,5 +50,23 @@ public class UsersEntity {
     @Basic
     @Column(name = "active")
     private int active;
+
+    @OneToMany(mappedBy = "author")
+    private Collection<TicketsEntity> Tickets;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<UserPermissionsEntity> UserPermissions;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<EmailRecipentsEntity> EmailsReceived;
+
+    @OneToMany(mappedBy = "assignee")
+    private Collection<TicketHistoryEntity> TicketsAssigned;
+
+    @OneToMany(mappedBy = "author")
+    private Collection<TicketCommentsEntity> CommentsAdded;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<OrganizationUsersEntity> UserOrganizations;
 
 }

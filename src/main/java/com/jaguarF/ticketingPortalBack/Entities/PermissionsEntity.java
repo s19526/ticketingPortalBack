@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,5 +26,8 @@ public class PermissionsEntity {
     @Basic
     @Column(name = "created")
     private Timestamp created;
+
+    @OneToMany(mappedBy = "permission")
+    private Collection<UserPermissionsEntity> userPermission;
 
 }

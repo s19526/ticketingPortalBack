@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,5 +32,8 @@ public class EmailsEntity {
     @Basic
     @Column(name = "created")
     private Timestamp created;
+
+    @OneToMany(mappedBy = "email")
+    private Collection<TicketEmailsEntity> ticketEmails;
 
 }

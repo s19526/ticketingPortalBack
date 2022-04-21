@@ -18,17 +18,23 @@ public class UserPermissionsEntity {
     @Id
     @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "permission_id")
-    private int permissionId;
-    @Basic
-    @Column(name = "user_id")
-    private int userId;
+    //@Basic
+    //@Column(name = "permission_id")
+    //private int permissionId;
+    //@Basic
+    //@Column(name = "user_id")
+    //private int userId;
     @Basic
     @Column(name = "date_added")
     private Timestamp dateAdded;
     @Basic
     @Column(name = "active")
     private int active;
+
+    @ManyToOne(optional = false)
+    private PermissionsEntity permission;
+
+    @ManyToOne(optional = false)
+    private UsersEntity user;
 
 }

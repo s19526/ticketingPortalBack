@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 @Getter@Setter@NoArgsConstructor
@@ -24,9 +25,12 @@ public class TicketsEntity {
     @Id
     @Column(name = "id")
     private int id;
+    //@Basic
+    //@Column(name = "author_id")
+    //private int authorId;
     @Basic
-    @Column(name = "author_id")
-    private int authorId;
+    @Column (name = "status")
+    private String status;
     @Basic
     @Column(name = "summary")
     private String summary;
@@ -39,5 +43,17 @@ public class TicketsEntity {
     @Basic
     @Column(name = "date_created")
     private Timestamp dateCreated;
+
+    @ManyToOne(optional = false)
+    private UsersEntity author;
+
+    @OneToMany(mappedBy = "ticket")
+    private Collection<TicketHistoryEntity> history;
+
+    @OneToMany(mappedBy = "ticket")
+    private Collection<TicketCommentsEntity> comments;
+
+    @OneToMany(mappedBy = "ticket")
+    private Collection<TicketEmailsEntity> ticketEmails;
 
 }
