@@ -1,5 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,9 +32,11 @@ public class OrganizationUsersEntity {
     private int active;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="organization-ou")
     private OrganizationsEntity organization;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="user-ou")
     private UsersEntity user;
 
 }

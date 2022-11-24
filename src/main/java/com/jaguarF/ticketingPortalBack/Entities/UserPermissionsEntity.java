@@ -1,5 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,9 +34,11 @@ public class UserPermissionsEntity {
     private int active;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="permission-up")
     private PermissionsEntity permission;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="user-up")
     private UsersEntity user;
 
 }

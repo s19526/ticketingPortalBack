@@ -1,5 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -52,21 +54,27 @@ public class UsersEntity {
     private int active;
 
     @OneToMany(mappedBy = "author")
+    @JsonManagedReference(value="user-ticket")
     private Collection<TicketsEntity> Tickets;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
+    @JsonManagedReference(value="user-up")
     private Collection<UserPermissionsEntity> UserPermissions;
 
-    @OneToMany(mappedBy = "user")
-    private Collection<EmailRecipentsEntity> EmailsReceived;
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
+    @JsonManagedReference(value="user-er")
+    private Collection<EmailRecipientsEntity> EmailsReceived;
 
-    @OneToMany(mappedBy = "assignee")
+    @OneToMany(mappedBy = "assignee", fetch=FetchType.LAZY)
+    @JsonManagedReference(value="user-th")
     private Collection<TicketHistoryEntity> TicketsAssigned;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch=FetchType.LAZY)
+    @JsonManagedReference(value="user-tc")
     private Collection<TicketCommentsEntity> CommentsAdded;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
+    @JsonManagedReference(value="user-ou")
     private Collection<OrganizationUsersEntity> UserOrganizations;
 
 }

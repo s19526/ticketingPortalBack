@@ -7,7 +7,7 @@ USE TICKETING_PORTAL;
 -- tables
 -- Table: email_recipents
 CREATE TABLE email_recipents (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     ticket_email_id int NOT NULL,
     user_id int NOT NULL,
     CONSTRAINT ticket_emails_pk PRIMARY KEY (id)
@@ -15,7 +15,7 @@ CREATE TABLE email_recipents (
 
 -- Table: emails
 CREATE TABLE emails (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     name varchar(32) NOT NULL,
     subject varchar(100) NOT NULL,
     content varchar(1000) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE emails (
 
 -- Table: organization_users
 CREATE TABLE organization_users (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     organization_id int NOT NULL,
     user_id int NOT NULL,
     active int NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE organization_users (
 
 -- Table: organizations
 CREATE TABLE organizations (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     company_name varchar(64) NOT NULL,
     max_users int NOT NULL,
     priority varchar(9) NOT NULL COMMENT 'Atrybut ''''priority'''' będzie przyjmował jedną z 3 wartości:
@@ -45,7 +45,7 @@ NORMAL / HIGH / VERY_HIGH ',
 
 -- Table: permissions
 CREATE TABLE permissions (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     name varchar(32) NOT NULL,
     created timestamp NOT NULL,
     CONSTRAINT permissions_pk PRIMARY KEY (id)
@@ -53,7 +53,7 @@ CREATE TABLE permissions (
 
 -- Table: statuses
 CREATE TABLE statuses (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     name varchar(32) NOT NULL,
     description varchar(64) NOT NULL,
     CONSTRAINT statuses_pk PRIMARY KEY (id)
@@ -61,7 +61,7 @@ CREATE TABLE statuses (
 
 -- Table: ticket_comments
 CREATE TABLE ticket_comments (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     ticket_id int NOT NULL,
     author_id int NOT NULL,
     content varchar(500) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE ticket_comments (
 
 -- Table: ticket_emails
 CREATE TABLE ticket_emails (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     ticket_id int NOT NULL,
     email_id int NOT NULL,
     date_sent timestamp NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE ticket_emails (
 
 -- Table: ticket_history
 CREATE TABLE ticket_history (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     ticket_id int NOT NULL,
     status_id int NOT NULL,
     assignee_id int NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE ticket_history (
 
 -- Table: tickets
 CREATE TABLE tickets (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     author_id int NOT NULL,
     summary varchar(100) NOT NULL,
     description varchar(500) NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE tickets (
 
 -- Table: user_permissions
 CREATE TABLE user_permissions (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     permission_id int NOT NULL,
     user_id int NOT NULL,
     date_added timestamp NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE user_permissions (
 
 -- Table: users
 CREATE TABLE users (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     email varchar(64) NOT NULL,
     password_salt int NOT NULL,
     name varchar(32) NOT NULL,

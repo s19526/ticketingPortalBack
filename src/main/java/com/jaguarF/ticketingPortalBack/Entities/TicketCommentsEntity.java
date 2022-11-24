@@ -1,5 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,11 @@ public class TicketCommentsEntity {
     private int deleted;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="ticket-tc")
     private TicketsEntity ticket;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="user-tc")
     private UsersEntity author;
 
 }

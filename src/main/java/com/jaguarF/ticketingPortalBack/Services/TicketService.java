@@ -43,11 +43,16 @@ public class TicketService {
     }
 
     @Transactional
-    public TicketsEntity save(TicketsEntity ticket){
-            TicketsEntity response = repository.save(ticket);
-            return response;
+    public TicketsEntity getTicketDetails(int ticketId){
+        TicketsEntity ticket = repository.findById(ticketId).get();
+        return ticket;
     }
 
+    @Transactional
+    public TicketsEntity save(TicketsEntity ticket) {
+        TicketsEntity response = repository.save(ticket);
+        return response;
+    }
     @Transactional
     public TicketsEntity update(TicketsEntity ticket){
             TicketsEntity response = repository.save(ticket);

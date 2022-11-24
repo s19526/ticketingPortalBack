@@ -1,5 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,12 +27,15 @@ public class TicketEmailsEntity {
     private Timestamp dateSent;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="ticket-te")
     private TicketsEntity ticket;
 
     @ManyToOne(optional = false)
+    @JsonBackReference(value="email-te")
     private EmailsEntity email;
 
     @OneToMany(mappedBy = "ticketEmail")
-    private Collection<EmailRecipentsEntity> recipents;
+    @JsonManagedReference(value="te-er")
+    private Collection<EmailRecipientsEntity> recipients;
 
 }
