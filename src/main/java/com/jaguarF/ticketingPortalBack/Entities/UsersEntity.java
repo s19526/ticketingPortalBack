@@ -27,7 +27,7 @@ public class UsersEntity {
     private String email;
     @Basic
     @Column(name = "password_salt")
-    private int passwordSalt;
+    private String passwordSalt;
     @Basic
     @Column(name = "name")
     private String name;
