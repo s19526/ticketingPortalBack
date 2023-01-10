@@ -3,9 +3,13 @@ package com.jaguarF.ticketingPortalBack.Services;
 import com.jaguarF.ticketingPortalBack.Entities.TicketsEntity;
 import com.jaguarF.ticketingPortalBack.Repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.transaction.Transactional;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +62,11 @@ public class TicketService {
             TicketsEntity response = repository.save(ticket);
             return response;
     }
-
-
-
+    @Transactional
+    public Boolean delete(int id) {
+       if(repository.deleteById(id)==1){
+           return true;
+       }
+       return false;
+    }
 }

@@ -3,6 +3,7 @@ import com.jaguarF.ticketingPortalBack.Entities.TicketsEntity;
 
 import com.jaguarF.ticketingPortalBack.Services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @Service("TicketController")
-@RequestMapping("/tickets")
+@RequestMapping("tickets")
 public class TicketController {
     @Autowired
     private TicketService ticketService;
@@ -32,10 +33,10 @@ public class TicketController {
         return tickets;
     }
 
-    //Returns details for specified ticket
-    @GetMapping("/{ticketId}")
-    TicketsEntity getUserTickets(@PathVariable int ticketId){
-        TicketsEntity ticket = ticketService.getTicketDetails(ticketId);
+    //Return details for specified ticket
+    @GetMapping("/{authorId}")
+    TicketsEntity getUserTickets(@PathVariable int authorId){
+        TicketsEntity ticket = ticketService.getTicketDetails(authorId);
         return ticket;
     }
 
@@ -51,17 +52,15 @@ public class TicketController {
     TicketsEntity changeTicket(@RequestBody TicketsEntity ticket){
         TicketsEntity changeResponse = ticketService.update(ticket);
         return changeResponse;
-
     }
 
-
-
-
-//ResponseEntity.status(HttpStatus.OK).body("");
-
-
-
-
-
-
+    //Deletes the ticket
+    @DeleteMapping("{ticketId}")
+    HttpStatus deleteTicket(@PathVariable int ticketId){
+        if (ticketService.delete(ticketId)){
+            return HttpStatus.NO_CONTENT;
+        }else{
+            return HttpStatus.NOT_FOUND;
+        }
+    }
 }

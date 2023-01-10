@@ -12,4 +12,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UsersEntity, Serializable> {
     public List<UsersEntity> findById (int userId);
     public UsersEntity findByEmailAndPasswordSalt(String email,String password_salt);
+    UsersEntity findUserEntityByIdAndActive(int userId, int i);
 }

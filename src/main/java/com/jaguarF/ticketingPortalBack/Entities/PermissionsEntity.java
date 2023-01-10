@@ -30,7 +30,8 @@ public class PermissionsEntity {
     private Timestamp created;
 
     @OneToMany(mappedBy = "permission")
-    @JsonManagedReference(value="permission-up")
+    //@JsonManagedReference(value="permission-up")
+    @JsonBackReference(value="permission-up")
     private Collection<UserPermissionsEntity> userPermission;
 
 }

@@ -20,12 +20,7 @@ public class UserPermissionsEntity {
     @Id
     @Column(name = "id")
     private int id;
-    //@Basic
-    //@Column(name = "permission_id")
-    //private int permissionId;
-    //@Basic
-    //@Column(name = "user_id")
-    //private int userId;
+
     @Basic
     @Column(name = "date_added")
     private Timestamp dateAdded;
@@ -34,7 +29,7 @@ public class UserPermissionsEntity {
     private int active;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="permission-up")
+    //@JsonBackReference(value="permission-up")
     private PermissionsEntity permission;
 
     @ManyToOne(optional = false)

@@ -35,7 +35,8 @@ public class OrganizationsEntity {
     private int active;
 
     @OneToMany(mappedBy = "organization")
-    @JsonManagedReference(value="organization-ou")
+    //@JsonManagedReference(value="organization-ou")
+    @JsonBackReference(value="organization-ou")
     private Collection<OrganizationUsersEntity> organizationUsers;
 
 }

@@ -32,7 +32,7 @@ public class OrganizationUsersEntity {
     private int active;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="organization-ou")
+    //@JsonBackReference(value="organization-ou")
     private OrganizationsEntity organization;
 
     @ManyToOne(optional = false)
