@@ -1,6 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class StatusesEntity {
     private String description;
 
     @OneToMany(mappedBy = "status")
-    @JsonManagedReference(value="status-th")
+    @JsonIgnore
+    //@JsonBackReference(value="status-th")
     private Collection<TicketHistoryEntity> ticketsHistory;
 }

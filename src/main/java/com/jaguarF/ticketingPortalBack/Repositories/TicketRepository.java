@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<TicketsEntity, Serializable> {
     public List<TicketsEntity> findByAuthorId (int authorId);
-    public List<TicketsEntity> findByStatus (String status);
     public int deleteById(int id);
 }

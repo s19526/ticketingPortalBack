@@ -1,44 +1,38 @@
 package com.jaguarF.ticketingPortalBack.Controllers;
 
-import com.jaguarF.ticketingPortalBack.Entities.PermissionsEntity;
-import com.jaguarF.ticketingPortalBack.Entities.TicketsEntity;
 import com.jaguarF.ticketingPortalBack.Entities.UserPermissionsEntity;
 import com.jaguarF.ticketingPortalBack.Entities.UsersEntity;
-import com.jaguarF.ticketingPortalBack.Repositories.UserPermissionRepository;
-import com.jaguarF.ticketingPortalBack.Services.PermissionService;
-import com.jaguarF.ticketingPortalBack.Services.TicketService;
-import com.jaguarF.ticketingPortalBack.Services.UserPermissionService;
 import com.jaguarF.ticketingPortalBack.Services.UserService;
-import org.apache.catalina.User;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.CollectionTable;
-import javax.websocket.server.PathParam;
-import java.io.Serializable;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @Service("UserController")
 @RequestMapping("users")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
     //Creates new user
     @PostMapping("/{create}")
-    UsersEntity createTicket(@RequestBody UsersEntity user){
+    UsersEntity createUser(@RequestBody UsersEntity user){
         user.setActive(1);
         UsersEntity createResponse = userService.save(user);
         return createResponse;
+    }
+
+    @PutMapping("/update")
+    UsersEntity updateUser(@RequestBody UsersEntity user){
+        user.setLastUpdate(Timestamp.from(Instant.now()));
+        UsersEntity updateResponse = userService.save(user);
+        return updateResponse;
     }
 
     @PostMapping("/login")
@@ -61,6 +55,11 @@ public class UserController {
     @PostMapping("/{userId}/deactivate")
     HttpStatus deactivateUser(@PathVariable int userId){
         return userService.deactivateUser(userId);
+    }
+
+    @PostMapping("/{userId}/activate")
+    HttpStatus activateUser(@PathVariable int userId){
+        return userService.activateUser(userId);
     }
 
 

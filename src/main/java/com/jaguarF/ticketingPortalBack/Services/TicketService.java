@@ -28,14 +28,7 @@ public class TicketService {
         }
     return new ArrayList<>();
     }
-    @Transactional
-    public List<TicketsEntity> getAllTickets(String status){
-        List<TicketsEntity> tickets = repository.findByStatus(status);
-        if(tickets.size() > 0) {
-            return tickets;
-        }
-        return new ArrayList<>();
-    }
+
     //Method to retrieve all the existing tickets reported by specified user
     @Transactional
     public List<TicketsEntity> getUserTickets(int authorId){
@@ -59,7 +52,13 @@ public class TicketService {
     }
     @Transactional
     public TicketsEntity update(TicketsEntity ticket){
-            TicketsEntity response = repository.save(ticket);
+            TicketsEntity toUpdate = repository.findById(ticket.getId()).get();
+            toUpdate.setSummary(ticket.getSummary());
+            toUpdate.setStatus(ticket.getStatus());
+            if(ticket.getAssignee()!=null)
+                toUpdate.setAssignee(ticket.getAssignee());
+            toUpdate.setDescription(ticket.getDescription());
+            TicketsEntity response = repository.save(toUpdate);
             return response;
     }
     @Transactional

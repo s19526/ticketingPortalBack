@@ -2,6 +2,7 @@ package com.jaguarF.ticketingPortalBack.Services;
 
 import com.jaguarF.ticketingPortalBack.Entities.UsersEntity;
 import com.jaguarF.ticketingPortalBack.Repositories.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,12 @@ public class UserService {
 
     @Transactional
     public UsersEntity loginUser(UsersEntity user) {
-        UsersEntity response = repository.findByEmailAndPasswordSalt(user.getEmail(),user.getPasswordSalt());
+        UsersEntity response = repository.findByEmailAndPasswordSaltAndActive(user.getEmail(),user.getPasswordSalt(),1);
         return response;
     }
     @Transactional
     public UsersEntity getUser(int userId){
-        return repository.findById(userId).get(0);
+        return repository.findById(userId);
     }
 
     @Transactional
@@ -37,7 +38,15 @@ public class UserService {
         if (ue != null) {
             ue.setLastUpdate(Timestamp.from(Instant.now()));
             ue.setActive(0);
-            System.out.println("User updated");
+            return HttpStatus.OK;
+        } else return HttpStatus.NOT_FOUND;
+    }
+    @Transactional
+    public HttpStatus activateUser(int userId) {
+        UsersEntity ue = repository.findUserEntityByIdAndActive(userId, 0);
+        if (ue != null) {
+            ue.setLastUpdate(Timestamp.from(Instant.now()));
+            ue.setActive(1);
             return HttpStatus.OK;
         } else return HttpStatus.NOT_FOUND;
     }

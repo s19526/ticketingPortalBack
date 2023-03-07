@@ -1,6 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -21,11 +22,6 @@ public class TicketsEntity {
     @Id
     @Column(name = "id")
     private int id;
-
-    //@Basic
-    //@Column(name = "author_id")
-    //private int authorId;
-
     @Basic
     @Column (name = "status")
     private String status;
@@ -42,17 +38,21 @@ public class TicketsEntity {
     @Column(name = "date_created")
     private Timestamp dateCreated;
 
+    //@JsonManagedReference(value="user-ticket")
     @ManyToOne(optional = false)
-    @JsonBackReference(value="user-ticket")
     private UsersEntity author;
-
-    @OneToMany(mappedBy = "ticket")
-    @JsonManagedReference(value="ticket-th")
-    private Collection<TicketHistoryEntity> history = new java.util.ArrayList<>();
+    @ManyToOne()
+    private UsersEntity assignee;
 
     @OneToMany(mappedBy = "ticket")
     @JsonManagedReference(value="ticket-tc")
     private Collection<TicketCommentsEntity> comments = new java.util.ArrayList<>();
+
+    @OneToMany(mappedBy = "ticket")
+    @JsonIgnore
+    //@JsonBackReference(value="ticket-th")
+    private Collection<TicketHistoryEntity> history = new java.util.ArrayList<>();
+
 
     @OneToMany(mappedBy = "ticket")
     @JsonManagedReference(value="ticket-te")

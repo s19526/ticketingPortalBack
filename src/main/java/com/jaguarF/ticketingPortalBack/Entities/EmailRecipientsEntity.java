@@ -19,12 +19,6 @@ public class EmailRecipientsEntity {
     @Id
     @Column(name = "id")
     private int id;
-    //@Basic
-    //@Column(name = "ticket_email_id")
-    //private int ticketEmailId;
-    //@Basic
-    //@Column(name = "user_id")
-    //private int userId;
 
     @ManyToOne(optional = false)
     @JsonBackReference(value="te-er")

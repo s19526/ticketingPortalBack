@@ -1,12 +1,18 @@
 package com.jaguarF.ticketingPortalBack.Controllers;
+import com.jaguarF.ticketingPortalBack.Entities.OrganizationUsersEntity;
+import com.jaguarF.ticketingPortalBack.Entities.TicketHistoryEntity;
 import com.jaguarF.ticketingPortalBack.Entities.TicketsEntity;
 
+import com.jaguarF.ticketingPortalBack.Entities.UsersEntity;
 import com.jaguarF.ticketingPortalBack.Services.TicketService;
+import com.jaguarF.ticketingPortalBack.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -15,28 +21,29 @@ import java.util.List;
 public class TicketController {
     @Autowired
     private TicketService ticketService;
-
+    @Autowired
+    private UserService userService;
     //Returns list of all tickets or tickets in specified status or reported by specified user
     @GetMapping()
-    List<TicketsEntity> getAllTickets(@RequestParam(required = false) String status, @RequestParam(required=false) Integer userId){
-        if (status != null){
-            List<TicketsEntity> tickets = ticketService.getAllTickets(status);
-            if(userId!=null){
-                tickets.removeIf(x->x.getAuthor().getId()!=userId);
+    List<TicketsEntity> getAllTickets( @RequestParam(required=false) Integer userId){
+        if(userId!=null){
+            List<TicketsEntity> tickets = new ArrayList<>();
+            UsersEntity user = userService.getUser(userId);
+            List<OrganizationUsersEntity> oue = (List)user.getUserOrganizations();
+            for (OrganizationUsersEntity userOrganization : oue.get(0).getOrganization().getOrganizationUsers()) {
+                tickets.addAll(ticketService.getUserTickets(userOrganization.getUser().getId()));
+                tickets.sort((x,y)->x.getId()>y.getId()?1:-1);
             }
-            return tickets;
-        }else if(userId!=null){
-            List<TicketsEntity> tickets = ticketService.getUserTickets(userId);
             return tickets;
         }
         List<TicketsEntity> tickets = ticketService.getAllTickets();
         return tickets;
     }
 
-    //Return details for specified ticket
-    @GetMapping("/{authorId}")
-    TicketsEntity getUserTickets(@PathVariable int authorId){
-        TicketsEntity ticket = ticketService.getTicketDetails(authorId);
+    //Return details of selected ticket
+    @GetMapping("/{ticketId}")
+    TicketsEntity getUserTickets(@PathVariable int ticketId){
+        TicketsEntity ticket = ticketService.getTicketDetails(ticketId);
         return ticket;
     }
 
@@ -62,5 +69,11 @@ public class TicketController {
         }else{
             return HttpStatus.NOT_FOUND;
         }
+    }
+
+    @GetMapping("{ticketId}/history")
+    Collection<TicketHistoryEntity> getTicketHistory(@PathVariable int ticketId){
+        TicketsEntity ticket = ticketService.getTicketDetails(ticketId);
+        return ticket.getHistory();
     }
 }

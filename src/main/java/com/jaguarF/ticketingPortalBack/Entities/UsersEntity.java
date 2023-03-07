@@ -1,6 +1,7 @@
 package com.jaguarF.ticketingPortalBack.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Collection;
 @Table(name = "users", schema = "TICKETING_PORTAL")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UsersEntity {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -44,9 +46,13 @@ public class UsersEntity {
     @Column(name = "active")
     private int active;
 
+
+
     @OneToMany(mappedBy = "author")
-    //@JsonManagedReference(value="user-ticket")
+    @JsonIgnore
+    @JsonBackReference(value="user-ticket")
     private Collection<TicketsEntity> Tickets;
+
 
     @OneToMany(mappedBy = "user")
     //@JsonManagedReference(value="user-up")
@@ -56,16 +62,27 @@ public class UsersEntity {
     //@JsonManagedReference(value="user-er")
     private Collection<EmailRecipientsEntity> EmailsReceived;
 
-    @OneToMany(mappedBy = "assignee", fetch=FetchType.LAZY)
-    //@JsonManagedReference(value="user-th")
-    private Collection<TicketHistoryEntity> TicketsAssigned;
-
-    @OneToMany(mappedBy = "author", fetch=FetchType.LAZY)
-    //@JsonManagedReference(value="user-tc")
-    private Collection<TicketCommentsEntity> CommentsAdded;
 
     @OneToMany(mappedBy = "user")
     //@JsonManagedReference(value="user-ou")
     private Collection<OrganizationUsersEntity> UserOrganizations;
+
+    @OneToMany(mappedBy = "author")
+    @JsonIgnore
+    @JsonBackReference(value="user-tc")
+    //@JsonManagedReference(value="user-tc")
+    private Collection<TicketCommentsEntity> CommentsAdded;
+
+    @OneToMany(mappedBy = "assignee")
+    @JsonIgnore
+    @JsonBackReference(value="user-th")
+    private Collection<TicketHistoryEntity> TicketHistory;
+
+    @OneToMany(mappedBy = "assignee")
+    @JsonIgnore
+    //@JsonBackReference(value="assignee-ticket")
+    //@JsonManagedReference(value="user-th")
+    private Collection<TicketsEntity> TicketsAssigned;
+
 
 }

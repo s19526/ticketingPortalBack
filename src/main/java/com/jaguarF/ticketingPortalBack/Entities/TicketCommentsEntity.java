@@ -19,12 +19,6 @@ public class TicketCommentsEntity {
     @Id
     @Column(name = "id")
     private int id;
-    //@Basic
-    //@Column(name = "ticket_id")
-    //private int ticketId;
-    //@Basic
-    //@Column(name = "author_id")
-    //private int authorId;
     @Basic
     @Column(name = "content")
     private String content;
@@ -43,7 +37,6 @@ public class TicketCommentsEntity {
     private TicketsEntity ticket;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="user-tc")
     private UsersEntity author;
 
 }

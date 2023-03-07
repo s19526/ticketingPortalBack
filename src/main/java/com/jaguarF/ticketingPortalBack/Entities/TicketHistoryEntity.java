@@ -19,15 +19,7 @@ public class TicketHistoryEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
-    //@Basic
-    //@Column(name = "ticket_id")
-    //private int ticketId;
-    //@Basic
-    //@Column(name = "status_id")
-    //private int statusId;
-    //@Basic
-    //@Column(name = "assignee_id")
-    //private int assigneeId;
+
     @Basic
     @Column(name = "action")
     private String action;
@@ -36,15 +28,12 @@ public class TicketHistoryEntity {
     private Timestamp date;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="ticket-th")
     private TicketsEntity ticket;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="status-th")
     private StatusesEntity status;
 
     @ManyToOne(optional = false)
-    @JsonBackReference(value="user-th")
     private UsersEntity assignee;
 
 }
